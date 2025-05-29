@@ -1,0 +1,86 @@
+.medpult-panel {
+  background-color: var(--medpult-panel-color);
+  margin: 10px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  font-family: Inter;
+
+  &__header {
+    height: 55px;
+    padding: 0 18px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    background-color: #f9f9fa;
+    gap: 24px;
+
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom: 2px solid var(--medpult-bg-color);
+
+    &_closed {
+      border-bottom-color: transparent;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+    }
+  }
+
+  &__label {
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 0.04px;
+    color: #53b5df;
+    text-align: center;
+    font-family: Inter;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  &__description {
+    color: White;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    background-color: #45b0e5;
+    width: 32px;
+    height: 32px;
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &__additional {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 4px;
+    color: #6b6c6f;
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  &__triangle {
+    color: #2f91e3 !important;
+    margin-left: auto;
+    user-select: none;
+    transition: transform 0.05s;
+
+    &_open {
+      transform: rotate(180deg);
+    }
+
+    & svg {
+      color: #2f91e3 !important;
+    }
+  }
+
+  &__content {
+    &_hidden {
+      display: none;
+    }
+  }
+}

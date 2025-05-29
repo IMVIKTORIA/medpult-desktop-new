@@ -1,0 +1,52 @@
+.medpult-modal-overloy {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  overflow: hidden;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.medpult-modal__content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 80svh;
+  background-color: var(--medpult-panel-color);
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: auto;
+  font-family: Inter;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 55px;
+    padding: 0 18px;
+    background-color: #f9fafa;
+    border-bottom: 2px solid var(--medpult-bg-color);
+
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 0.04px;
+    color: #53b5df;
+  }
+
+  &__close {
+    height: 25px;
+    width: 25px;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    display: flex;
+  }
+}
