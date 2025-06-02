@@ -15,16 +15,12 @@ function RequestsPanel() {
     const requestId = props.info;
     if (!requestId) return;
 
-    // Запись текущего url в localStorage
-    window.localStorage.setItem(
-      "medpultPathBefore",
-      window.location.pathname + window.location.search
-    );
-    localStorage.setItem("medpultRequestId", requestId);
-    //localStorage.setItem(localStorageDraftKey, JSON.stringify(data));
-    // Переход
+    utils.setRequest(requestId);
+
     const link = Scripts.getRequestPagePath();
-    redirectSPA(link);
+    const redirectUrl = new URL(window.location.origin + "/" + link);
+    if (requestId) redirectUrl.searchParams.set("request_id", requestId);
+    utils.redirectSPA(redirectUrl.toString());
   };
   /** Колонки списка */
   const columns = [

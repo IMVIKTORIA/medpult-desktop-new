@@ -1,4 +1,4 @@
-import { FetchData } from "../../../UIKit/CustomList/CustomListTypes";
+import { FetchData, SortData } from "../../../UIKit/CustomList/CustomListTypes";
 import {
   RequestsListData,
   TaskListData,
@@ -15,12 +15,15 @@ function randomDelay() {
 }
 
 /** Получение списка обращений */
-async function getRequests(): Promise<FetchData<RequestsListData>> {
+async function getRequests(
+  page: number,
+  sortData?: SortData
+): Promise<FetchData<RequestsListData>> {
   await randomDelay();
 
   const mockData: RequestsListData = {
     appealNumber: { value: "RQ000006100/25", info: "11113" },
-    sla: { value: "- 3д 2ч 20м", info: "3" },
+    sla: { value: "- 3д 2ч 20м", info: 90 },
     appealChannel: "103@sberins.ru",
     statusContragent: { value: "Gold", info: "Gold" },
     appealEmail: "ivanov@mail.ru",
@@ -55,12 +58,15 @@ async function getSlaRequests() {
 }
 
 /** Получение списка моих задач */
-async function getMyTask(): Promise<FetchData<TaskListData>> {
+async function getMyTask(
+  page: number,
+  sortData?: SortData
+): Promise<FetchData<TaskListData>> {
   await randomDelay();
 
   const mockData: TaskListData = {
     taskNumber: { value: "RQ000006100/25", info: "11113" },
-    sla: { value: "- 3д 2ч 20м", info: "2" },
+    sla: { value: "- 3д 2ч 20м", info: 30 },
     urgency: "Экстренно",
     statusContragent: { value: "Silver", info: "Silver" },
     insured: "Назаров Антон Алексеевич",
@@ -96,12 +102,15 @@ async function getSlaMyTask() {
 }
 
 /** Получение списка задач моей группы */
-async function getTasksGroup(): Promise<FetchData<TaskListData>> {
+async function getTasksGroup(
+  page: number,
+  sortData?: SortData
+): Promise<FetchData<TaskListData>> {
   await randomDelay();
 
   const mockData: TaskListData = {
     taskNumber: { value: "RQ000006100/25", info: "11113" },
-    sla: { value: "- 3д 2ч 20м", info: "1" },
+    sla: { value: "- 3д 2ч 20м", info: 0 },
     urgency: "Планово",
     statusContragent: { value: "Platinum", info: "Platinum" },
     insured: "Назаров Антон Алексеевич",
@@ -138,13 +147,13 @@ async function getSlaTasksGroup() {
 
 /** Получение списка контрагентов */
 async function getContractorsList(
-  phone: string
+  phone: string,
+  sortData?: SortData
 ): Promise<FetchData<ContragentListData>> {
   await randomDelay();
 
   const mockData: ContragentListData = {
-    id: "",
-    fullname: "Назаров Антон Алексеевич",
+    fullname: { value: "Назаров Антон Алексеевич", info: "queue" },
     phone: "+79022857817",
     email: "test@gmail.com",
     type: "Физлицо",
@@ -166,7 +175,8 @@ async function getContractorsList(
 
 /** Получение списка обращений контрагента */
 async function getRequestsByContractor(
-  contractorId: string
+  contractorId: string,
+  sortData?: SortData
 ): Promise<FetchData<ContractorRequestsListData>> {
   await randomDelay();
 
@@ -200,6 +210,10 @@ declare const Context: any;
 function getRequestPagePath(): string {
   return Context.data.request_page_path;
 }
+
+async function getRequestIdByTaskId(taskId: string): Promise<string> {
+  return "test";
+}
 /** Получение кода страницы Задачи */
 function getTaskPageCode(): string {
   return "test";
@@ -207,6 +221,11 @@ function getTaskPageCode(): string {
 /** Получение кода страницы Контрагента */
 function getContractorPageCode(): string {
   return Context.data.contractor_page_path;
+}
+
+/** Получение кода страницы отбора обращений */
+function getSelectRequestPagePath(): string {
+  return "test";
 }
 
 async function createInteractionByRequestId(
@@ -237,7 +256,10 @@ export default {
 
   getRequestPagePath,
   getTaskPageCode,
+  getRequestIdByTaskId,
   getContractorPageCode,
+  getSelectRequestPagePath,
+
   OnInit,
   createInteractionByRequestId,
 };

@@ -15,16 +15,20 @@ function MyTaskPanel() {
     const taskId = props.info;
     if (!taskId) return;
 
-    // Запись текущего url в localStorage
-    window.localStorage.setItem(
-      "medpultPathBefore",
-      window.location.pathname + window.location.search
-    );
-    localStorage.setItem("medpultTaskId", taskId);
-    //localStorage.setItem(localStorageDraftKey, JSON.stringify(data));
+    const requestId = await Scripts.getRequestIdByTaskId(taskId);
+    utils.setRequest(requestId);
+
+    localStorage.setItem("taskId", taskId);
+    //localStorage.setItem(localStorageDraftKey, JSON.stringify(data))
+
     // Переход
-    const link = Scripts.getTaskPageCode();
-    redirectSPA(link);
+    const link = await Scripts.getRequestPagePath();
+    // utils.redirectSPA(link)
+
+    const redirectUrl = new URL(window.location.origin + "/" + link);
+    if (requestId) redirectUrl.searchParams.set("request_id", requestId);
+    if (taskId) redirectUrl.searchParams.set("task_id", taskId);
+    utils.redirectSPA(redirectUrl.toString());
   };
   /** Колонки списка */
   const columns = [

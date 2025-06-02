@@ -115,8 +115,7 @@ export class TaskListData {
 }
 
 export class ContragentListData {
-  id: string;
-  fullname: string;
+  fullname: ObjectItem;
   phone: string;
   email: string;
   type: string;

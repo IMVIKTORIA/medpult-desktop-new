@@ -74,15 +74,20 @@ function ContractorRequestsTable({
       contractorId,
       phone
     );
-    localStorage.removeItem("medpult-draft");
-    redirectSPA("<%=Context.data.request_page_path%>");
+    utils.setRequest(selectedRequestId);
+
+    const link = Scripts.getRequestPagePath();
+    const redirectUrl = new URL(window.location.origin + "/" + link);
+    if (selectedRequestId)
+      redirectUrl.searchParams.set("request_id", selectedRequestId);
+    utils.redirectSPA(redirectUrl.toString());
   };
 
   const search = () => {
     localStorage.setItem("medpult-call-phone", phone);
     localStorage.setItem("medpult-call-contractor", contractorId);
     // Перейти на форму отбора контрагентов
-    const link = Scripts.getRequestPagePath();
+    const link = Scripts.getSelectRequestPagePath();
     redirectSPA(link);
   };
 
@@ -110,7 +115,7 @@ function ContractorRequestsTable({
           <Button
             title="Поиск"
             clickHandler={search}
-            style={{ backgroundColor: "53B5DF" }}
+            style={{ backgroundColor: "#53B5DF" }}
             //disabled={contractorId === ''}
           />
           <Button

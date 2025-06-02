@@ -12,7 +12,8 @@ function CustomListRowColumn(props: ListColumnProps) {
 
   const onClickColumn =
     isLink && onClick
-      ? () => {
+      ? (e: React.MouseEvent) => {
+          e.stopPropagation();
           onClick(data);
         }
       : () => {};
@@ -33,14 +34,14 @@ function CustomListRowColumn(props: ListColumnProps) {
     return `${prefix}...${suffix}`;
   }
 
-  function getSlaIcon(code: string) {
-    if (code === "1") {
+  function getSlaIcon(percentage: number) {
+    if (percentage === 0) {
       return icons.TimeOutlineRed;
     }
-    if (code === "2") {
+    if (percentage <= 30) {
       return icons.TimeOutlineOrange;
     }
-    if (code === "3") {
+    if (percentage <= 100) {
       return icons.TimeOutlineGreen;
     }
   }

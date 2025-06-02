@@ -102,7 +102,7 @@ function CustomListRow<ItemType = any>(props: ListRowProps<ItemType>) {
             ...rowStyles,
             backgroundColor: isChecked
               ? "rgba(217, 217, 217, 0.45)"
-              : data?.["sla"]?.info === "1"
+              : data?.["sla"]?.info === 0
               ? "#fbe0e0"
               : undefined,
           }}

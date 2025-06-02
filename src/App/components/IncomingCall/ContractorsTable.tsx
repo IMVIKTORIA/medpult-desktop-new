@@ -38,13 +38,13 @@ function ContractorsTable({
     const contractorId = props.info;
     if (!contractorId) return;
 
-    // Запись текущего url в localStorage
     window.localStorage.setItem(
       "medpultPathBefore",
       window.location.pathname + window.location.search
     );
-    localStorage.setItem("medpultContractorIdId", contractorId);
+    localStorage.setItem("medpultContractorId", contractorId);
     //localStorage.setItem(localStorageDraftKey, JSON.stringify(data));
+
     // Переход
     const link = Scripts.getContractorPageCode();
     redirectSPA(link);
@@ -101,7 +101,7 @@ function ContractorsTable({
         <Button
           title="Поиск"
           clickHandler={search}
-          style={{ backgroundColor: "53B5DF" }}
+          style={{ backgroundColor: "#53B5DF" }}
         />
       </div>
       <CustomList
