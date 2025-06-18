@@ -123,24 +123,17 @@ function MyTaskPanel() {
     setElementsCount(count);
   };
 
-  //статус sla задач
-  const [statusSla, setStatusSla] = useState<number>(0);
-  const fetchStatusSla = async () => {
-    const count = await Scripts.getSlaMyTask();
-    setStatusSla(count);
-  };
-
   // Вычислить количество задач
   useEffect(() => {
     fetchElementsCount();
-    fetchStatusSla();
   }, []);
+  
   return (
     <div>
       <Panel
         label={`Мои Задачи`}
         description={elementsCount}
-        additional={statusSla}
+        getSlaStatus={Scripts.getSlaMyTask}
         isOpen={true}
       >
         <div style={{ padding: "0" }}>
