@@ -119,24 +119,17 @@ function GroupTaskPanel() {
     setElementsCount(count);
   };
 
-  //статус sla задач
-  const [statusSla, setStatusSla] = useState<number>(0);
-  const fetchStatusSla = async () => {
-    const count = await Scripts.getSlaTasksGroup();
-    setStatusSla(count);
-  };
-
   // Вычислить количество задач
   useEffect(() => {
     fetchElementsCount();
-    fetchStatusSla();
   }, []);
+
   return (
     <div>
       <Panel
         label={`Задачи моей группы`}
         description={elementsCount}
-        additional={statusSla}
+        getSlaStatus={Scripts.getSlaTasksGroup}
         isOpen={true}
       >
         <div style={{ padding: "0" }}>

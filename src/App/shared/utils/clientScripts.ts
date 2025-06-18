@@ -54,6 +54,7 @@ async function getCountRequests() {
 }
 
 async function getSlaRequests() {
+  await randomDelay();
   return 91;
 }
 
@@ -98,6 +99,7 @@ async function getCountMyTask() {
 }
 
 async function getSlaMyTask() {
+  await randomDelay();
   return 80;
 }
 
@@ -142,6 +144,7 @@ async function getCountTasksGroup() {
 }
 
 async function getSlaTasksGroup() {
+  await randomDelay();
   return 40;
 }
 

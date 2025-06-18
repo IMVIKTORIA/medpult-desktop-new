@@ -1,19 +1,41 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import Loader from "../../../UIKit/Loader/Loader";
+
+type PanelProps = {
+  children?: any,
+  label: any,
+  description: any,
+  // additional: number,
+  isRollable?: boolean,
+  isOpen: boolean,
+  getSlaStatus: () => Promise<number>
+}
 
 /** Сворачиваемая панель */
 function Panel({
   children,
   label = "",
   description,
-  additional,
+  // additional,
   isRollable = true,
   isOpen = true,
-}) {
+  getSlaStatus
+}: PanelProps) {
   const [isPanelOpen, setIsPanelOpen] = useState<boolean>(isOpen);
 
+  const [statusSla, setStatusSla] = useState<number | undefined>(undefined);
+  const fetchStatusSla = async () => {
+    const count = await getSlaStatus();
+    setStatusSla(count);
+  };
+  useEffect(() => {
+    fetchStatusSla();
+  }, []);
+
+
   const getColor = () => {
-    if (additional < 70) return "#FF4545"; //красный
-    if (additional <= 90) return "#FF9F45"; //желтый
+    if (statusSla && statusSla < 70) return "#FF4545"; //красный
+    if (statusSla && statusSla <= 90) return "#FF9F45"; //желтый
     return "#21A038"; //зеленый
   };
 
@@ -67,7 +89,11 @@ function Panel({
         </span>
         <div className="medpult-panel__additional">
           <span>SLA:</span>
-          <span style={{ color: getColor() }}>{additional}%</span>
+          {
+            statusSla != undefined
+            ? <span style={{ color: getColor() }}>{statusSla}%</span>
+            : <Loader/>
+          }
         </div>
         {triangleElement}
       </div>

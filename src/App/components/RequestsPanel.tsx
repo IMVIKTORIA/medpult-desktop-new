@@ -108,24 +108,17 @@ function RequestsPanel() {
     setElementsCount(count);
   };
 
-  //статус sla обращений
-  const [statusSla, setStatusSla] = useState<number>(0);
-  const fetchStatusSla = async () => {
-    const count = await Scripts.getSlaRequests();
-    setStatusSla(count);
-  };
-
   // Вычислить количество обращений
   useEffect(() => {
     fetchElementsCount();
-    fetchStatusSla();
   }, []);
+
   return (
     <div>
       <Panel
         label={`Обращения`}
         description={elementsCount}
-        additional={statusSla}
+        getSlaStatus={Scripts.getSlaRequests}
         isOpen={true}
       >
         <div style={{ padding: "0" }}>
