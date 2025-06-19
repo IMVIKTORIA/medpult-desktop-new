@@ -29,13 +29,25 @@ function Panel({
     setStatusSla(count);
   };
   useEffect(() => {
+    // Обновление SLA
     fetchStatusSla();
+
+    // Запуск обновления SLA каждую минуту
+    const intervalId = setInterval(() => {
+      try {
+        fetchStatusSla();
+      } catch(e) {
+        clearInterval(intervalId);
+      }
+    }, 60000)
   }, []);
 
 
   const getColor = () => {
-    if (statusSla && statusSla < 70) return "#FF4545"; //красный
-    if (statusSla && statusSla <= 90) return "#FF9F45"; //желтый
+    const statusValue = statusSla ?? 0;
+    
+    if (statusValue < 70) return "#FF4545"; //красный
+    if (statusValue <= 90) return "#FF9F45"; //желтый
     return "#21A038"; //зеленый
   };
 
