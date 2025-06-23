@@ -4,7 +4,9 @@ import {
   TaskListData,
   ContragentListData,
   ContractorRequestsListData,
+  TermBuffer,
 } from "../types";
+import { generateTermBufferList } from "./termBufferMockGenerator";
 
 /** Заглушка ожидания ответа сервера */
 function randomDelay() {
@@ -241,6 +243,12 @@ async function OnInit(): Promise<void> {
   await randomDelay();
 }
 
+/** Получить сроки обработки обращений */
+async function getRequestsProcessingTerms(requestsIds: string[]): Promise<TermBuffer[]> {
+  await randomDelay();
+  return generateTermBufferList()
+}
+
 export default {
   getRequests,
   getCountRequests,
@@ -265,4 +273,6 @@ export default {
 
   OnInit,
   createInteractionByRequestId,
+
+  getRequestsProcessingTerms
 };

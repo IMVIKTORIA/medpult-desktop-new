@@ -157,3 +157,19 @@ export class ContractorRequestsListData {
     this.reason = reason;
   }
 }
+
+/** Буфер значения срока */
+export type TermBuffer = {
+  /** Идентификатор объекта */
+  id: string,
+  /** Оставшееся количество минут */
+  minutesRemaining: number,
+  /** Идентификатор SLA */
+  slaId?: string,
+  /** Значение SLA в минутах */
+  slaValue?: number,
+  /** Дата от которой отсчитывается дедлайн */
+  startDate?: Date
+  /** Дата от которой вычисляется оставшееся время */
+  endDate?: Date
+}

@@ -6,6 +6,8 @@ import {
   getDetailsLayoutAttributes,
 } from "../CustomListTypes";
 import CustomListSelector from "../CustomListSelector/CustomListSelector";
+import { TermBuffer } from "../../../App/shared/types";
+import { getSlaPercentage } from "../../../App/shared/utils/utils";
 
 interface ListRowProps<ItemType = any> {
   /** Настройки строки (обязательно) */
@@ -43,7 +45,8 @@ interface ListRowProps<ItemType = any> {
   /** Изменить выбор строки */
   toggleChecked: () => void;
   /** Селектор активен */
-  isChecked: boolean;
+  isChecked: boolean; 
+  slaData?: TermBuffer
 }
 
 /** Строка таблицы */
@@ -62,6 +65,7 @@ function CustomListRow<ItemType = any>(props: ListRowProps<ItemType>) {
     isMultipleSelect,
     toggleChecked,
     isChecked,
+    slaData,
   } = props;
 
   /** Обработчик клика по строке */
@@ -91,7 +95,6 @@ function CustomListRow<ItemType = any>(props: ListRowProps<ItemType>) {
     cursor: isSelectable ? "pointer" : undefined,
   };
   //if (!isSelectable) rowStyles.paddingLeft = `20px`;
-
   return (
     <>
       {!isShowDetails && (
@@ -102,8 +105,8 @@ function CustomListRow<ItemType = any>(props: ListRowProps<ItemType>) {
             ...rowStyles,
             backgroundColor: isChecked
               ? "rgba(217, 217, 217, 0.45)"
-              : data?.["sla"]?.info === 0
-              ? "#fbe0e0"
+              : (slaData?.slaValue != undefined) && getSlaPercentage(slaData) === 0
+              ? (() => {console.log(slaData); return "#fbe0e0"})()
               : undefined,
           }}
         >
@@ -126,6 +129,7 @@ function CustomListRow<ItemType = any>(props: ListRowProps<ItemType>) {
               <CustomListRowColumn
                 listRef={listRef}
                 data={columnData}
+                slaData={slaData}
                 {...settings}
               />
             );

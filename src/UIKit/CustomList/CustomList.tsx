@@ -10,6 +10,7 @@ import {
   getDetailsLayoutAttributes,
 } from "./CustomListTypes";
 import CustomListSelector from "./CustomListSelector/CustomListSelector";
+import { TermBuffer } from "../../App/shared/types";
 
 type ListProps<SearchDataType = any, ItemType = any> = {
   /** Основные настройки */
@@ -48,6 +49,9 @@ type ListProps<SearchDataType = any, ItemType = any> = {
   selectedItems?: string[];
   /** Присвоить выбранные строки */
   setSelectedItems?: (ids: string[]) => void;
+
+  updateSlaBuffer?: (requestsIds: string[]) => Promise<void>
+  slaBuffer?: TermBuffer[]
 };
 
 /** Список данных в виде таблицы */
@@ -67,6 +71,8 @@ function CustomList<SearchDataType = any, ItemType = any>(
     isSelectable,
     selectedItems = [],
     setSelectedItems,
+    updateSlaBuffer,
+    slaBuffer,
   } = props;
 
   // Страница
@@ -193,6 +199,34 @@ function CustomList<SearchDataType = any, ItemType = any>(
     headerStyles.width = `${listWidth - getScrollbarWidth(headerRef)}px`;
   if (!isSelectable) headerStyles.paddingLeft = `20px`;
 
+
+  // Обновление сроков SLA
+  async function handleUpdateSla() {
+    if(!updateSlaBuffer || !slaBuffer) return
+    const ids = items.map(item => item.id);
+    await updateSlaBuffer(ids)
+  }
+
+  // Обновление сроков раз в минуту
+  useEffect(() => {
+    if(!updateSlaBuffer || !slaBuffer) return
+
+    handleUpdateSla();
+    const interval = setInterval(() => {
+      try {
+        handleUpdateSla();
+      } catch(e) {
+        clearInterval(interval);
+      }
+    }, 60000)
+
+    return () => clearInterval(interval);
+  }, [])
+
+  function findSlaBufferById(id: string) {
+    return slaBuffer?.find(sla => sla.id == id);
+  }
+
   return (
     <div className="custom-list">
       <div
@@ -275,6 +309,7 @@ function CustomList<SearchDataType = any, ItemType = any>(
                 isChecked={Boolean(
                   selectedItems.find((checkedId) => checkedId === item.id)
                 )}
+                slaData={findSlaBufferById(item.id)}
               />
             );
           })}

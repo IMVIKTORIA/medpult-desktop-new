@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { localStorageDraftKey } from "./constants";
-import { JsonDataType } from "../types";
+import { JsonDataType, TermBuffer } from "../types";
 
 /** Маршрутизация по SPA */
 export const redirectSPA = (href: string) => {
@@ -273,6 +273,15 @@ export const getMaskedPhone = (value: string) => {
       .replace(/^(7|8)/, "+7") ?? ""
   );
 };
+
+export function getSlaPercentage(term: TermBuffer) {
+  if(!term.slaValue) return 0;
+
+  let percent =  Math.round((term.minutesRemaining / term.slaValue) * 100);
+  if (percent < 0) percent = 0;
+
+  return percent
+}
 
 export default {
   redirectSPA,

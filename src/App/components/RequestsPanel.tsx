@@ -7,6 +7,7 @@ import {
 import CustomList from "../../UIKit/CustomList/CustomList";
 import Scripts from "../shared/utils/clientScripts";
 import utils, { redirectSPA } from "../shared/utils/utils";
+import { TermBuffer } from "../shared/types";
 
 /** Панель Обращения */
 function RequestsPanel() {
@@ -113,6 +114,12 @@ function RequestsPanel() {
     fetchElementsCount();
   }, []);
 
+  const [slaBuffer, setSlaBuffer] = useState<TermBuffer[]>([])
+  async function updateSlaBuffer(requestsIds: string[]) {
+    const terms = await Scripts.getRequestsProcessingTerms(requestsIds)
+    setSlaBuffer(terms)
+  }
+
   return (
     <div>
       <Panel
@@ -126,6 +133,9 @@ function RequestsPanel() {
             columnsSettings={columns}
             getDataHandler={Scripts.getRequests}
             isScrollable={false}
+
+            updateSlaBuffer={updateSlaBuffer}
+            slaBuffer={slaBuffer}
           />
         </div>
       </Panel>
