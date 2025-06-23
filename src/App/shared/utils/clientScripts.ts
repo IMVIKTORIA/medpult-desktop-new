@@ -47,7 +47,7 @@ async function getRequests(
           data: new RequestsListData(mockData),
         };
       }),
-    hasMore: false,
+    hasMore: true,
   };
 }
 /** Получить количество обращений*/
@@ -92,7 +92,7 @@ async function getMyTask(
           data: new TaskListData(mockData),
         };
       }),
-    hasMore: false,
+    hasMore: true,
   };
 }
 /** Получить количество обращений*/
@@ -137,7 +137,7 @@ async function getTasksGroup(
           data: new TaskListData(mockData),
         };
       }),
-    hasMore: false,
+    hasMore: true,
   };
 }
 /** Получить количество задач группы*/

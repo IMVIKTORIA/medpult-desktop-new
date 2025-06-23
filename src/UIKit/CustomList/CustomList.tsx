@@ -222,6 +222,11 @@ function CustomList<SearchDataType = any, ItemType = any>(
 
     return () => clearInterval(interval);
   }, [])
+  
+  // Обновление сроков при подгрузке новых элементов
+  useEffect(() => {
+    handleUpdateSla();
+  }, [items])
 
   function findSlaBufferById(id: string) {
     return slaBuffer?.find(sla => sla.id == id);
