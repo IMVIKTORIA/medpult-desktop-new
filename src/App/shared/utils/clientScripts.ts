@@ -55,7 +55,7 @@ async function getCountRequests() {
 
 async function getSlaRequests() {
   await randomDelay();
-  return 91;
+  return Math.floor(Math.random() * 100);
 }
 
 /** Получение списка моих задач */
@@ -100,7 +100,7 @@ async function getCountMyTask() {
 
 async function getSlaMyTask() {
   await randomDelay();
-  return 80;
+  return Math.floor(Math.random() * 100);
 }
 
 /** Получение списка задач моей группы */
@@ -145,7 +145,7 @@ async function getCountTasksGroup() {
 
 async function getSlaTasksGroup() {
   await randomDelay();
-  return 40;
+  return Math.floor(Math.random() * 100);
 }
 
 /** Получение списка контрагентов */
