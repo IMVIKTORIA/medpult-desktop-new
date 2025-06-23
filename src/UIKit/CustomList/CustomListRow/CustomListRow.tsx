@@ -106,7 +106,7 @@ function CustomListRow<ItemType = any>(props: ListRowProps<ItemType>) {
             backgroundColor: isChecked
               ? "rgba(217, 217, 217, 0.45)"
               : (slaData?.slaValue != undefined) && getSlaPercentage(slaData) === 0
-              ? (() => {console.log(slaData); return "#fbe0e0"})()
+              ? "#fbe0e0"
               : undefined,
           }}
         >

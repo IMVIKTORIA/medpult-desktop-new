@@ -207,12 +207,14 @@ function CustomList<SearchDataType = any, ItemType = any>(
     await updateSlaBuffer(ids)
   }
 
-  // Обновление сроков раз в минуту
+  let interval: NodeJS.Timeout;
+  // Обновление сроков раз в минуту или при подгрузке новых элементов
   useEffect(() => {
     if(!updateSlaBuffer || !slaBuffer) return
+    if(interval) clearInterval(interval);
 
     handleUpdateSla();
-    const interval = setInterval(() => {
+    interval = setInterval(() => {
       try {
         handleUpdateSla();
       } catch(e) {
@@ -221,11 +223,6 @@ function CustomList<SearchDataType = any, ItemType = any>(
     }, 60000)
 
     return () => clearInterval(interval);
-  }, [])
-  
-  // Обновление сроков при подгрузке новых элементов
-  useEffect(() => {
-    handleUpdateSla();
   }, [items])
 
   function findSlaBufferById(id: string) {
