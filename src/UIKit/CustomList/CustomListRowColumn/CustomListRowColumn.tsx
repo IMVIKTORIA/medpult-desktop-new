@@ -1,14 +1,38 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ItemData, ListColumnData } from "../CustomListTypes";
 import icons from "../../../App/shared/icons";
+import { TermBuffer } from "../../../App/shared/types";
+import { getSlaPercentage } from "../../../App/shared/utils/utils";
 
 interface ListColumnProps extends ListColumnData {
   data: ItemData<any>;
-  listRef?: React.RefObject<HTMLDivElement>;
+  listRef?: React.RefObject<HTMLDivElement>;  
+  slaData?: TermBuffer
 }
 
+// Функция чтобы дни, часы, минуты было в формате 00
+function padZero(value: number): string {
+    return value < 10 ? '0' + value : value.toString();
+}
+
+
 function CustomListRowColumn(props: ListColumnProps) {
-  const { fr, data, isLink, onClick, isIcon, code } = props;
+  const { fr, data, isLink, onClick, isIcon, code, slaData } = props;
+  
+  //Функция для преобразования вывода SLA
+  function formatDuration(totalMinutes: number): string {
+      const isNegative = totalMinutes < 0;
+      const absMinutes = Math.abs(totalMinutes); // модуль числа
+  
+      // Вычисляем дни, часы, минуты 
+      const days = Math.floor(absMinutes / (60 * 24));
+      const hours = Math.floor((absMinutes % (60 * 24)) / 60);
+      const minutes = Math.floor(absMinutes % 60);
+  
+      // Добавляем знак "-" для отрицательной разницы
+      const result = `${padZero(days)}д ${padZero(hours)}ч ${padZero(minutes)}м`;
+      return isNegative ? `-${result}` : result;
+  }
 
   const onClickColumn =
     isLink && onClick
@@ -45,6 +69,7 @@ function CustomListRowColumn(props: ListColumnProps) {
       return icons.TimeOutlineGreen;
     }
   }
+  
   function getStatusContragentColor(info: string) {
     switch (info) {
       case "Gold":
@@ -56,6 +81,7 @@ function CustomListRowColumn(props: ListColumnProps) {
       default:
     }
   }
+
   function getStatusColor(info: string) {
     switch (info) {
       case "sozdano":
@@ -87,7 +113,15 @@ function CustomListRowColumn(props: ListColumnProps) {
     displayValue = data?.value ?? "";
   }
 
-  const slaIcon = code === "sla" ? getSlaIcon(data?.info) : undefined;
+  // Расчет SLA
+  // Значение SLA - день час минута
+  const slaValueStr = slaData?.slaValue ? formatDuration(slaData.minutesRemaining) : undefined;
+  // Процент SLA оставшееся время / значение SLA
+  const slaPercentage = slaData?.slaValue != undefined ? getSlaPercentage(slaData) : undefined;
+  // Иконка SLA TODO: Сделать пауза и выполнено - добавить и рассчитывать поле status в TermsBuffer
+  const slaIcon = (code === "sla" && slaPercentage != undefined) ? getSlaIcon(slaPercentage) : undefined;
+
+  // Логика для статусов
   const statusIcon = code === "status" ? getStatusIcon(data?.info) : undefined;
   const statusContragentColor =
     code === "statusContragent"
@@ -95,6 +129,14 @@ function CustomListRowColumn(props: ListColumnProps) {
       : undefined;
   const statusColor =
     code === "appealStatus" ? getStatusColor(data?.info) : undefined;
+
+  /** Получить отображаемое значение колонки */
+  function getColumnValue() {
+    switch(code) {
+      case "sla": return slaValueStr
+      default: return displayValue;
+    }
+  }
 
   return (
     <div
@@ -132,7 +174,7 @@ function CustomListRowColumn(props: ListColumnProps) {
             whiteSpace: "nowrap",
           }}
         >
-          {displayValue}
+          {getColumnValue()}
         </span>
       </span>
     </div>

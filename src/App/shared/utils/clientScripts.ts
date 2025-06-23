@@ -4,7 +4,9 @@ import {
   TaskListData,
   ContragentListData,
   ContractorRequestsListData,
+  TermBuffer,
 } from "../types";
+import { generateTermBufferList } from "./termBufferMockGenerator";
 
 /** Заглушка ожидания ответа сервера */
 function randomDelay() {
@@ -45,7 +47,7 @@ async function getRequests(
           data: new RequestsListData(mockData),
         };
       }),
-    hasMore: false,
+    hasMore: true,
   };
 }
 /** Получить количество обращений*/
@@ -90,7 +92,7 @@ async function getMyTask(
           data: new TaskListData(mockData),
         };
       }),
-    hasMore: false,
+    hasMore: true,
   };
 }
 /** Получить количество обращений*/
@@ -135,7 +137,7 @@ async function getTasksGroup(
           data: new TaskListData(mockData),
         };
       }),
-    hasMore: false,
+    hasMore: true,
   };
 }
 /** Получить количество задач группы*/
@@ -241,6 +243,18 @@ async function OnInit(): Promise<void> {
   await randomDelay();
 }
 
+/** Получить сроки обработки обращений */
+async function getRequestsProcessingTerms(requestsIds: string[]): Promise<TermBuffer[]> {
+  await randomDelay();
+  return generateTermBufferList()
+}
+
+/** Получить сроки решения задач */
+async function getTasksResolutionTerms(tasksIds: string[]): Promise<TermBuffer[]> {
+  await randomDelay();
+  return generateTermBufferList()
+}
+
 export default {
   getRequests,
   getCountRequests,
@@ -265,4 +279,7 @@ export default {
 
   OnInit,
   createInteractionByRequestId,
+
+  getRequestsProcessingTerms,
+  getTasksResolutionTerms
 };
