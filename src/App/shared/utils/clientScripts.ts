@@ -249,6 +249,12 @@ async function getRequestsProcessingTerms(requestsIds: string[]): Promise<TermBu
   return generateTermBufferList()
 }
 
+/** Получить сроки решения задач */
+async function getTasksResolutionTerms(tasksIds: string[]): Promise<TermBuffer[]> {
+  await randomDelay();
+  return generateTermBufferList()
+}
+
 export default {
   getRequests,
   getCountRequests,
@@ -274,5 +280,6 @@ export default {
   OnInit,
   createInteractionByRequestId,
 
-  getRequestsProcessingTerms
+  getRequestsProcessingTerms,
+  getTasksResolutionTerms
 };

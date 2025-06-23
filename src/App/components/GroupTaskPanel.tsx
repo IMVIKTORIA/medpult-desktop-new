@@ -7,6 +7,7 @@ import {
 import CustomList from "../../UIKit/CustomList/CustomList";
 import Scripts from "../shared/utils/clientScripts";
 import utils, { redirectSPA } from "../shared/utils/utils";
+import { TermBuffer } from "../shared/types";
 
 /** Панель Задачи моей группы */
 function GroupTaskPanel() {
@@ -124,6 +125,13 @@ function GroupTaskPanel() {
     fetchElementsCount();
   }, []);
 
+  
+  const [slaBuffer, setSlaBuffer] = useState<TermBuffer[]>([])
+  async function updateSlaBuffer(tasksIds: string[]) {
+    const terms = await Scripts.getTasksResolutionTerms(tasksIds)
+    setSlaBuffer(terms)
+  }
+  
   return (
     <div>
       <Panel
@@ -137,6 +145,9 @@ function GroupTaskPanel() {
             columnsSettings={columns}
             getDataHandler={Scripts.getTasksGroup}
             isScrollable={false}
+
+            slaBuffer={slaBuffer}
+            updateSlaBuffer={updateSlaBuffer}
           />
         </div>
       </Panel>
