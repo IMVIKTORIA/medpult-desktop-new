@@ -202,9 +202,14 @@ function CustomList<SearchDataType = any, ItemType = any>(
 
   // Обновление сроков SLA
   async function handleUpdateSla() {
-    if(!updateSlaBuffer || !slaBuffer) return
-    const ids = items.map(item => item.id);
-    await updateSlaBuffer(ids)
+    try {  
+      if(!updateSlaBuffer || !slaBuffer) return
+      const ids = items.map(item => item.id);
+      await updateSlaBuffer(ids)
+    } catch(e) {
+      clearInterval(interval);
+      throw new Error(e)
+    }
   }
 
   let interval: NodeJS.Timeout;
