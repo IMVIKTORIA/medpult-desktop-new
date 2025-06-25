@@ -18,7 +18,7 @@ function padZero(value: number): string {
 
 
 function CustomListRowColumn(props: ListColumnProps) {
-  const { fr, data, isLink, onClick, isIcon, code, slaData } = props;
+  const { fr, data, isLink, onClick, isIcon, code, slaData, fixedWidth } = props;
   
   //Функция для преобразования вывода SLA
   function formatDuration(totalMinutes: number): string {
@@ -147,12 +147,12 @@ function CustomListRowColumn(props: ListColumnProps) {
           : "custom-list-row-column"
       }
       style={{
-        flex: fr,
+        ...(fixedWidth ? { width: fixedWidth } : { flex: fr }),
         minWidth: 0,
       }}
     >
       <span
-        title={displayValue}
+        title={getColumnValue()}
         onClick={onClickColumn}
         style={{
           display: "inline-flex",

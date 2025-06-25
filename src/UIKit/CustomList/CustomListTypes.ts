@@ -25,6 +25,10 @@ export class SortData {
 export class ListColumnData {
   /** Коэффициент соотношения ширины столбца */
   fr: number;
+  /** Фиксированная ширина столбца */
+  fixedWidth: string;
+  /** Кастомные настройки отступа вокруг содержания ячейки таблицы */
+  contentPadding: string;
   /** Можно ли по этому столбцу сортировать */
   isSortable: boolean;
   /** Хранит ли по столбец ссылки */
@@ -49,6 +53,8 @@ export class ListColumnData {
     onClick,
     isRollable,
     isIcon,
+    fixedWidth,
+    contentPadding,
   }: {
     name: string;
     code: string;
@@ -58,6 +64,8 @@ export class ListColumnData {
     onClick?: (props: any) => any;
     isRollable?: boolean;
     isIcon?: boolean;
+    fixedWidth?: string;
+    contentPadding?: string;
   }) {
     this.fr = fr ?? 1;
     this.isSortable = isSortable ?? false;
@@ -68,6 +76,8 @@ export class ListColumnData {
     this.name = name;
     this.code = code;
     this.isRollable = isRollable ?? false;
+    if (fixedWidth) this.fixedWidth = fixedWidth;
+    if (contentPadding) this.contentPadding = contentPadding;
   }
 }
 

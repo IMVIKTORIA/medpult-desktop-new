@@ -6,14 +6,21 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  padding: 16px;
 
   & > span {
-    font-family: "Inter";
+    /* Body_14 */
+    font-family: 'Inter';
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
-    line-height: 130%;
-    letter-spacing: 0.0025em;
+    line-height: 20px;
+    /* identical to box height, or 143% */
+    display: flex;
+    align-items: center;
+    /* Grey/Grey_1100 */
+    color: #2D2E2F;
+
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;

@@ -197,7 +197,6 @@ function CustomList<SearchDataType = any, ItemType = any>(
   const headerStyles: React.CSSProperties = {};
   if (listWidth)
     headerStyles.width = `${listWidth - getScrollbarWidth(headerRef)}px`;
-  if (!isSelectable) headerStyles.paddingLeft = `20px`;
 
 
   // Обновление сроков SLA

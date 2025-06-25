@@ -2,43 +2,51 @@
   user-select: none;
   display: flex;
   flex-direction: row;
-  gap: 8px;
+  gap: 4px;
   align-items: center;
+  padding: 16px;
 
   &__name {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
 
-    font-family: "Inter";
+    /* Table_header */
+    font-family: 'Inter';
     font-style: normal;
     font-weight: 500;
-    font-size: 12px;
+    font-size: 11px;
     line-height: 130%;
+    /* or 14px */
     letter-spacing: 0.0025em;
     text-transform: uppercase;
-    color: #959599;
+    /* Grey/Grey_600 */
+    color: #959699;
     width: 10px;
+
     flex: 1;
+    max-width: fit-content;
   }
 
   &__button {
+    align-items: center;
     width: 16px;
     height: 16px;
     display: flex;
     flex-direction: column;
     cursor: pointer;
+    gap: 4px;
 
     &_up {
       display: flex;
-      width: 16px;
-      height: 8px;
+      width: 10px;
+      height: 6px;
     }
     &_down {
       display: flex;
       transform: rotate(180deg);
-      width: 16px;
-      height: 8px;
+      width: 10px;
+      height: 6px;
     }
   }
 }
