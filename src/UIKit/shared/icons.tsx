@@ -153,9 +153,9 @@ const Deny = (
 )
 
 const SortArrow = (
-	<svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M10 6H0L5 0L10" fill="#45B0E6"/>
-</svg>
+	<svg width="10" height="6">
+		<polygon points="0,6 5,0 10,6" fill="#45B0E6" />
+	</svg>
 )
 
 const Unchecked = (

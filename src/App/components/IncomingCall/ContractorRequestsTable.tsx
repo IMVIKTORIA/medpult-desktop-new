@@ -4,7 +4,7 @@ import {
   ItemData,
 } from "../../../UIKit/CustomList/CustomListTypes";
 import CustomList from "../../../UIKit/CustomList/CustomList";
-import Scripts from "../../shared/utils/clientScripts";
+//import Scripts from "../../shared/utils/clientScripts";
 import utils, { redirectSPA } from "../../shared/utils/utils";
 import Button from "../../../UIKit/Button/Button";
 
