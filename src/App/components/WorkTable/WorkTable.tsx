@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-//import Scripts from "../../shared/utils/clientScripts";
+import Scripts from "../../shared/utils/clientScripts";
 import RequestsPanel from "../RequestsPanel";
 import MyTaskPanel from "../MyTaskPanel";
 import GroupTaskPanel from "../GroupTaskPanel";

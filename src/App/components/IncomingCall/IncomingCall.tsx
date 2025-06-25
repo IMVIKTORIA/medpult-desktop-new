@@ -4,7 +4,7 @@ import Button from "../../../UIKit/Button/Button";
 import InputButton from "../../../UIKit/InputButton/InputButton";
 import ModalWrapper from "../../../UIKit/ModalWrapper/ModalWrapper";
 import icons from "../../shared/icons";
-//import Scripts from "../../shared/utils/clientScripts";
+import Scripts from "../../shared/utils/clientScripts";
 import { getMaskedPhone } from "../../shared/utils/utils";
 import ModalIncomingCall from "./ModalIncomingCall/ModalIncomingCall";
 import ContractorsTable from "./ContractorsTable";
