@@ -1,4 +1,4 @@
-import { TermBuffer } from "../types";
+import { TermBuffer, TermBufferStatus } from "../types";
 
 /**
  * Генератор моковых данных для TermBuffer
@@ -27,8 +27,19 @@ const generateTermBuffer = (overrides: Partial<TermBuffer> = {}): TermBuffer => 
     const startDate = new Date(Date.now() - Math.floor(Math.random() * 86400000)); // Случайная дата в прошлом
     const endDate = new Date(startDate.getTime() + Math.floor(Math.random() * 86400000)); // Случайная дата в будущем относительно startDate
 
+    const randomStatusNumber = Math.random();
+    let randomStatus = TermBufferStatus.inactive
+    if(randomStatusNumber > 0 && randomStatusNumber < 0.33) {
+        randomStatus = TermBufferStatus.active
+    } else if(randomStatusNumber > 0.33 && randomStatusNumber < 0.66) {
+        randomStatus = TermBufferStatus.done
+    } else {
+        randomStatus = TermBufferStatus.pause
+    }
+
     return {
         id: overrides.id ?? id,
+        status: overrides.status ?? randomStatus,
         minutesRemaining: overrides.minutesRemaining ?? minutesRemaining,
         slaId: overrides.slaId ?? slaId,
         slaValue: overrides.slaValue ?? slaValue,

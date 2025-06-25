@@ -3,6 +3,7 @@ import { ItemData, ListColumnData } from "../CustomListTypes";
 import icons from "../../../App/shared/icons";
 import { TermBuffer } from "../../../App/shared/types";
 import { getSlaPercentage } from "../../../App/shared/utils/utils";
+import { getSlaIcon } from "./slaIconsUtils";
 
 interface ListColumnProps extends ListColumnData {
   data: ItemData<any>;
@@ -58,17 +59,17 @@ function CustomListRowColumn(props: ListColumnProps) {
     return `${prefix}...${suffix}`;
   }
 
-  function getSlaIcon(percentage: number) {
-    if (percentage === 0) {
-      return icons.TimeOutlineRed;
-    }
-    if (percentage <= 30) {
-      return icons.TimeOutlineOrange;
-    }
-    if (percentage <= 100) {
-      return icons.TimeOutlineGreen;
-    }
-  }
+  // function getSlaIcon(percentage: number) {
+  //   if (percentage === 0) {
+  //     return icons.TimeOutlineRed;
+  //   }
+  //   if (percentage <= 30) {
+  //     return icons.TimeOutlineOrange;
+  //   }
+  //   if (percentage <= 100) {
+  //     return icons.TimeOutlineGreen;
+  //   }
+  // }
   
   function getStatusContragentColor(info: string) {
     switch (info) {
@@ -118,8 +119,8 @@ function CustomListRowColumn(props: ListColumnProps) {
   const slaValueStr = slaData?.slaValue ? formatDuration(slaData.minutesRemaining) : undefined;
   // Процент SLA оставшееся время / значение SLA
   const slaPercentage = slaData?.slaValue != undefined ? getSlaPercentage(slaData) : undefined;
-  // Иконка SLA TODO: Сделать пауза и выполнено - добавить и рассчитывать поле status в TermsBuffer
-  const slaIcon = (code === "sla" && slaPercentage != undefined) ? getSlaIcon(slaPercentage) : undefined;
+  // Иконка SLA
+  const slaIcon = (code === "sla" && slaPercentage != undefined && slaData) ? getSlaIcon(slaData.status, slaPercentage) : undefined;
 
   // Логика для статусов
   const statusIcon = code === "status" ? getStatusIcon(data?.info) : undefined;
