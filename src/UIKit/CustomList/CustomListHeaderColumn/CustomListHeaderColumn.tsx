@@ -47,7 +47,7 @@ function CustomListHeaderColumn(props: ListColumnProps) {
 
 	return (
 		<div className="custom-list-header-column" style={fixedWidth ? { width: fixedWidth } : { flex: fr }}>
-			<div className="custom-list-header-column__name">
+			<div className="custom-list-header-column__name" title={name}>
 				{name}
 			</div>
 			{isSortable && sortButton}

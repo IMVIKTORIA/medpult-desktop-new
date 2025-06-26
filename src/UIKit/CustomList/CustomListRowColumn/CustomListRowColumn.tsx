@@ -139,6 +139,14 @@ function CustomListRowColumn(props: ListColumnProps) {
     }
   }
 
+  /** Получить отображаемую подсказку колонки */
+  function getColumnHint() {
+    switch(code) {
+      case "sla": return slaValueStr
+      default: return data?.value;
+    }
+  }
+
   return (
     <div
       className={
@@ -152,7 +160,7 @@ function CustomListRowColumn(props: ListColumnProps) {
       }}
     >
       <span
-        title={getColumnValue()}
+        title={getColumnHint()}
         onClick={onClickColumn}
         style={{
           display: "inline-flex",
