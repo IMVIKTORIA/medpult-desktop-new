@@ -64,6 +64,7 @@ function MyTaskPanel() {
       name: "Застрахованный",
       code: "insured",
       fr: 141.5,
+      isSortable: true,
     }),
     new ListColumnData({
       name: "Регион",

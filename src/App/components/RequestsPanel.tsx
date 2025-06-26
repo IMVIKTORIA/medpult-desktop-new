@@ -56,6 +56,7 @@ function RequestsPanel() {
       name: "Email",
       code: "appealEmail",
       fr: 195.25,
+      isSortable: true,
     }),
     new ListColumnData({
       name: "Тема обращения",
@@ -93,7 +94,6 @@ function RequestsPanel() {
       fr: 150,
       isSortable: true,
     }),
-
     new ListColumnData({
       name: "Причина обращения",
       code: "appealReason",
