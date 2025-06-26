@@ -143,7 +143,7 @@ function CustomListRowColumn(props: ListColumnProps) {
   function getColumnHint() {
     switch(code) {
       case "sla": return slaValueStr
-      default: return data?.value;
+      default: return typeof data === "string" ? data : data?.value;
     }
   }
 
