@@ -93,6 +93,8 @@ function ContractorRequestsTable({
 
   const newRequest = async () => {
     window.localStorage.removeItem("medpult-draft");
+    
+    if(contractorId) await Scripts.assignInsured(contractorId);
 
     const request_page_path = Scripts.getRequestPagePath();
     redirectSPA(request_page_path + "?mode=create");

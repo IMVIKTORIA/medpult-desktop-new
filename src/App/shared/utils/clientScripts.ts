@@ -255,6 +255,34 @@ async function getTasksResolutionTerms(tasksIds: string[]): Promise<TermBuffer[]
   return generateTermBufferList()
 }
 
+/** Запись Застрахованного в черновик
+ * @param fieldId Идентификатор html элемента, в который запишется значение
+ * @param contractorId Идентификатор контрагента
+ */
+async function assignInsured(contractorId: string) {
+    // const draftObj = JSON.parse(localStorage.getItem("medpult-draft"));
+    // const draftItem = {
+    //     fieldId: fieldId,
+    //     contractorId: contractorId
+    // }
+
+    // if (draftObj == undefined) {
+    //     localStorage.setItem("medpult-draft", JSON.stringify([
+    //         draftItem
+    //     ]));
+    //     return;
+    // }
+
+    // const itemIndex = draftObj.findIndex((d: any) => d.fieldId === fieldId);
+    // if (itemIndex === -1) {
+    //     draftObj.push(draftItem)
+    // } else {
+    //     draftObj[itemIndex] = draftItem;
+    // }
+
+    // localStorage.setItem("medpult-draft", JSON.stringify(draftObj));
+}
+
 export default {
   getRequests,
   getCountRequests,
@@ -281,5 +309,6 @@ export default {
   createInteractionByRequestId,
 
   getRequestsProcessingTerms,
-  getTasksResolutionTerms
+  getTasksResolutionTerms,
+  assignInsured
 };
