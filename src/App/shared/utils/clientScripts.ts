@@ -283,6 +283,13 @@ async function assignInsured(contractorId: string) {
     // localStorage.setItem("medpult-draft", JSON.stringify(draftObj));
 }
 
+/** Создание обращения по Контрагенту
+ * @returns Элемент приложения Обращения
+ */
+async function createRequestForContractor(phone: string, contractorId?: string): Promise<string | undefined> {
+  return "0197c997-a1df-71ea-88e2-0c9ec3d1f792"
+}
+
 export default {
   getRequests,
   getCountRequests,
@@ -310,5 +317,7 @@ export default {
 
   getRequestsProcessingTerms,
   getTasksResolutionTerms,
-  assignInsured
+  assignInsured,
+  
+  createRequestForContractor
 };

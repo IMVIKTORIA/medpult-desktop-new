@@ -92,12 +92,15 @@ function ContractorRequestsTable({
   };
 
   const newRequest = async () => {
-    window.localStorage.removeItem("medpult-draft");
-    
-    if(contractorId) await Scripts.assignInsured(contractorId);
+    if(!contractorId) return;
 
-    const request_page_path = Scripts.getRequestPagePath();
-    redirectSPA(request_page_path + "?mode=create");
+    window.localStorage.removeItem("medpult-draft");
+    const requestId = await Scripts.createRequestForContractor(phone, contractorId);
+    
+    const link = Scripts.getRequestPagePath();
+    const redirectUrl = new URL(window.location.origin + "/" + link);
+    if (requestId) redirectUrl.searchParams.set("request_id", requestId);
+    utils.redirectSPA(redirectUrl.toString());
   };
 
   const handleRequestSelect = (ids: string[]) => {
